@@ -2,6 +2,8 @@
 
 @section('content')
 
+  
+
     <h1>メッセージ新規作成ページ</h1>
 
     <div class="row">
