@@ -15,7 +15,7 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $messages = Task::all();
+        $tasks = Task::all();
 
         return view('tasks.index', [
             'tasks' => $tasks,
