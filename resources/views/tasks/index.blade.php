@@ -13,6 +13,7 @@
                         <th>id</th>
                         <th>メッセージ</th>
                         <th>ステータス</th>
+                        {!! link_to_route('tasks.create', '新規メッセージの投稿', [], ['class' => 'btn btn-primary']) !!}
                     </tr>
                 </thead>
                 <tbody>
@@ -28,11 +29,11 @@
     @else
         <div class="center jumbotron">
             <div class="text-center">
-                <h1>Welcome to the Microposts</h1>
+                <h1>Welcome to the Tasklists</h1>
                 {!! link_to_route('signup.get', 'Sign up now!', [], ['class' => 'btn btn-lg btn-primary']) !!}
             </div>
         </div>
     @endif
-    {!! link_to_route('tasks.create', '新規メッセージの投稿', [], ['class' => 'btn btn-primary']) !!}
+    
 
 @endsection
