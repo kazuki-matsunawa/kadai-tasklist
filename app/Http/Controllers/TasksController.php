@@ -15,16 +15,20 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $tasks = \App\User::find($id);
-        
-        if (Auth::check() != $task->user_id) {
-            return view('welcome');
+        $data = [];
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
+            
+            $data = [
+                'user' => $user,
+                'tasks' => $tasks,
+            ];
         }
         
-        return view('tasks.index', [
-            'tasks' => $tasks,
-        ]);
+        return view('welcome', $data);
     }
+
 
     /**
      * Show the form for creating a new resource.
