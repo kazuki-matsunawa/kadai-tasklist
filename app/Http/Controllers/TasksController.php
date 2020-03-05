@@ -17,11 +17,13 @@ class TasksController extends Controller
     {
         $task = Task::find($id);
         
-        if (\Auth::id() === $task->user_id) {
-            $task->index();
+        if (\Auth::id() != $task->user_id) {
+            return view('welcome');
         }
         
-        return redirect('/');
+        return view('tasks.index', [
+            'tasks' => $tasks,
+        ]);
     }
 
     /**
@@ -71,11 +73,15 @@ class TasksController extends Controller
     {
         $task = Task::find($id);
         
-        if (\Auth::id() === $task->user_id) {
-            $task->show();
+        // ログインユーザーのTaskでなければ
+        if (\Auth::id() != $task->user_id) {
+            return redirect('/'); // リダイレクト
         }
 
-        return redirect('/');
+        // ログインユーザーのものなら詳細を表示
+        return view('tasks.show', [
+            'task' => $task,
+        ]);
     }
 
     /**
@@ -88,8 +94,8 @@ class TasksController extends Controller
     {
         $task = Task::find($id);
         
-        if (\Auth::id() === $task->user_id) {
-            $task->edit();
+        if (\Auth::id() != $task->user_id) {
+            return redirect('/');
         }
 
         return view('tasks.edit', [
@@ -107,19 +113,13 @@ class TasksController extends Controller
     public function update(Request $request, $id)
     {   
         
-        if (\Auth::id() === $task->user_id){
-            $this->validate($request, [
-                'content' => 'required|max:191',
-                'status' => 'required|max:191',
-            ]);
-            $task = Task::find($id);
-            $task->content = $request->content;
-            $task->status = $request->status;
-            $task->save();
-         }
+        if (\Auth::id() != $task->user_id){
+            return redirect('/');
+        }
         
-
-        return redirect('/');
+        return view('tasks.show', [
+            'task' => $task,
+        ]);
     }
 
     /**
