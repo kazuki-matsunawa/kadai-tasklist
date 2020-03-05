@@ -15,7 +15,8 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $tasks = tasks()->orderBy('created_at', 'desc')->paginate(10);
+        $user = \Auth::user();
+        $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
         
         if (Auth::check() != $task->user_id) {
             return view('welcome');
