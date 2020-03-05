@@ -17,7 +17,7 @@ class TasksController extends Controller
     {
         $tasks = Task::find($id);
         
-        if (\Auth::id() != $task->user_id) {
+        if (\Auth::check() != $task->user_id) {
             return view('welcome');
         }
         
@@ -112,6 +112,7 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {   
+        $task = Task::find($id);
         
         if (\Auth::id() != $task->user_id){
             return redirect('/');
@@ -121,7 +122,6 @@ class TasksController extends Controller
             'content' => 'required|max:191',
             'status' => 'required|max:191',
         ]);
-        $task = Task::find($id);
         $task->content = $request->content;
         $task->status = $request->status;
         $task->save();
