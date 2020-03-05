@@ -15,7 +15,6 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $task = Task::all();
         
         if (\Auth::id() != $task->user_id) {
             return view('welcome');
