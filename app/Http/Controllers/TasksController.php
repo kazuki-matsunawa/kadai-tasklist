@@ -15,15 +15,13 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $task = Task::all();
+        $task = Task::find($id);
         
         if (\Auth::id() === $task->user_id) {
             $task->index();
         }
         
-        
-
-        return view('welcome');
+        return redirect('/');
     }
 
     /**
