@@ -15,7 +15,7 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $tasks = User::find($id);
+        $tasks = \App\Task::find($id);
         
         if (Auth::check() != $task->user_id) {
             return view('welcome');
