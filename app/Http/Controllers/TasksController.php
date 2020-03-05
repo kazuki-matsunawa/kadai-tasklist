@@ -15,7 +15,7 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $task = [];
+        $tasks = Task::find($id);
         
         if (\Auth::id() != $task->user_id) {
             return view('welcome');
@@ -117,9 +117,16 @@ class TasksController extends Controller
             return redirect('/');
         }
         
-        return view('tasks.show', [
-            'task' => $task,
+        $this->validate($request, [
+            'content' => 'required|max:191',
+            'status' => 'required|max:191',
         ]);
+        $task = Task::find($id);
+        $task->content = $request->content;
+        $task->status = $request->status;
+        $task->save();
+        
+        return redirect('/');
     }
 
     /**
