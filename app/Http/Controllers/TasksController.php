@@ -15,7 +15,7 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $task = \App\Task::find($id);
+        $task = Task::find($id);
         
         if (\Auth::id() === $task->user_id) {
             $task->index();
@@ -136,7 +136,7 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        $task = \App\Task::find($id);
+        $task = Task::find($id);
     
         
         if (\Auth::id() === $task->user_id) {
