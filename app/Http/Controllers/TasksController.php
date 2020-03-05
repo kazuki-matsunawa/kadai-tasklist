@@ -75,9 +75,7 @@ class TasksController extends Controller
             $task->show();
         }
 
-        return view('tasks.show', [
-            'task' => $task,
-        ]);
+        return redirect('/');
     }
 
     /**
